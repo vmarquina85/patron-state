@@ -5,10 +5,9 @@
  */
 package patronstate;
 
-/**
- *
- * @author Administrator
- */
+import patronstate.estados.EstadoAlumno;
+import patronstate.estados.EstadoRegistrado;
+
 public class Alumno {
 
     public static final int ESTADO_REGISTRADO = 1;
@@ -16,15 +15,18 @@ public class Alumno {
     public static final int ESTADO_EGRESADO = 3;
     public static final int ESTADO_SUSPENDIDO = 0;
     public static final int ESTADO_EXPULSADO = -1;
+     public static final int ESTADO_ADVERTIDO = 4;
 
     private long id;
     private String codigo;
     private String nombre;
-    private int estado;
-//...
+    //...
+    //private int estado;
+    private EstadoAlumno estado;
+
 
     public Alumno() {
-        this.estado = 1;
+        this.estado = new EstadoRegistrado(this);
     }
 
     /*
@@ -35,46 +37,7 @@ public class Alumno {
  -1: expulsado
      */
 
-    public void matricular() {
-        if (this.estado == ESTADO_REGISTRADO) {
-            this.estado = Alumno.ESTADO_MATRICULADO;
-        }
 
-    }
-
-    public void finalizarCliclo() {
-        if (this.estado == ESTADO_MATRICULADO) {
-            this.estado = Alumno.ESTADO_REGISTRADO;
-        }
-
-    }
-
-    public void cometerInfraccion() {
-        if (this.estado == ESTADO_REGISTRADO || this.estado == ESTADO_MATRICULADO) {
-            this.estado = Alumno.ESTADO_SUSPENDIDO;
-        }
-
-    }
-
-    public void cumplirTiempo() {
-        if (this.estado == ESTADO_SUSPENDIDO) {
-            this.estado = Alumno.ESTADO_REGISTRADO;
-        }
-    }
-
-    public void cumplirCreditos() {
-        if (this.estado == ESTADO_MATRICULADO) {
-            this.estado = Alumno.ESTADO_EGRESADO;
-        }
-    }
-
-    public void Expulsar() {
-        if (this.estado == ESTADO_SUSPENDIDO
-                || this.estado == ESTADO_MATRICULADO
-                || this.estado == ESTADO_REGISTRADO) {
-            this.estado = Alumno.ESTADO_EXPULSADO;
-        }
-    }
 
     public void setId(long id) {
         this.id = id;
@@ -88,7 +51,7 @@ public class Alumno {
         this.nombre = nombre;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(EstadoAlumno estado) {
         this.estado = estado;
     }
 
@@ -104,7 +67,7 @@ public class Alumno {
         return nombre;
     }
 
-    public int getEstado() {
+    public EstadoAlumno getEstado() {
         return estado;
     }
 

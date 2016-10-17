@@ -5,15 +5,18 @@
  */
 package patronstate;
 
+import patronstate.estados.EstadoAlumno;
+
 /**
  *
  * @author Administrator
  */
 public class GestorMatricula {
     public void matricular(Alumno alumno){
-       alumno.matricular();
+       alumno.getEstado().matricular();
     }
       public void expulsar(Alumno alumno){
-   alumno.Expulsar();
+          EstadoAlumno estado =alumno.getEstado();
+          estado.expulsar();
     }
 }
